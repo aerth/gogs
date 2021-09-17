@@ -48,6 +48,11 @@ func Home(c *context.Context) {
 }
 
 func ExploreRepos(c *context.Context) {
+	// redirect visitor to login page
+	if !c.IsLogged {
+		c.Redirect(conf.Server.Subpath + "/user/login")
+		return
+	}
 	c.Data["Title"] = c.Tr("explore")
 	c.Data["PageIsExplore"] = true
 	c.Data["PageIsExploreRepositories"] = true
@@ -92,6 +97,11 @@ type UserSearchOptions struct {
 }
 
 func RenderUserSearch(c *context.Context, opts *UserSearchOptions) {
+	// redirect visitor to login page
+	if !c.IsLogged {
+		c.Redirect(conf.Server.Subpath + "/user/login")
+		return
+	}
 	page := c.QueryInt("page")
 	if page <= 1 {
 		page = 1
@@ -133,6 +143,11 @@ func RenderUserSearch(c *context.Context, opts *UserSearchOptions) {
 }
 
 func ExploreUsers(c *context.Context) {
+	// redirect visitor to login page
+	if !c.IsLogged {
+		c.Redirect(conf.Server.Subpath + "/user/login")
+		return
+	}
 	c.Data["Title"] = c.Tr("explore")
 	c.Data["PageIsExplore"] = true
 	c.Data["PageIsExploreUsers"] = true
@@ -148,6 +163,11 @@ func ExploreUsers(c *context.Context) {
 }
 
 func ExploreOrganizations(c *context.Context) {
+	// redirect visitor to login page
+	if !c.IsLogged {
+		c.Redirect(conf.Server.Subpath + "/user/login")
+		return
+	}
 	c.Data["Title"] = c.Tr("explore")
 	c.Data["PageIsExplore"] = true
 	c.Data["PageIsExploreOrganizations"] = true
