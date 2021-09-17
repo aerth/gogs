@@ -622,9 +622,12 @@ func runWeb(c *cli.Context) error {
 		// **********************
 
 		// TODO: Without session and CSRF
-		m.Group("/api", func() {
-			apiv1.RegisterRoutes(m)
-		}, ignSignIn)
+
+		if false {
+			m.Group("/api", func() {
+				apiv1.RegisterRoutes(m)
+			}, ignSignIn)
+		}
 	},
 		session.Sessioner(session.Options{
 			Provider:       conf.Session.Provider,
@@ -682,7 +685,8 @@ func runWeb(c *cli.Context) error {
 		if conf.HasRobotsTxt {
 			http.ServeFile(w, r, filepath.Join(conf.CustomDir(), "robots.txt"))
 		} else {
-			w.WriteHeader(http.StatusNotFound)
+			// no robots
+			fmt.Fprintf(w, "User-agent: *\nDisallow: /\n")
 		}
 	})
 
